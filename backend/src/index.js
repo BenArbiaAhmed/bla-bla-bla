@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5181",
+    origin: "http://localhost:5175",
     credentials: true
 }))
 app.use(express.json());
@@ -23,5 +23,10 @@ app.use("/api/message", messageRoutes)
 const port = process.env.PORT;
 app.listen(port, (req, res) => {
     console.log("Server started on port : " + port);
-    connectDB();
+    try {
+        connectDB()
+    }
+    catch(err) {
+        console.log("Error connecting to database", err);
+    }
 })
