@@ -7,7 +7,7 @@ export const signup = async (req,res)=> {
     const {fullName, email, password} = req.body;
     try{
         if(!fullName || !password || !email){
-            return res.status(400).json({message:"All fields are required"});
+            return res.status(400).json(    {message:"All fields are required"});
         }
         if(password.length < 6){
             return res.status(400).json({message:"Password must be at least 6 characters long"});
@@ -87,7 +87,7 @@ export const updateProfile = async (req, res) => {
         const userId = req.user._id;
 
         if (!profilePic) {
-            return res.status(400).json({message: "Profile picture is required"});
+            return res.status(400).json({ message: "Profile pic is required" });
         }
 
         const uploadResponse = await cloudinary.uploader.upload(profilePic);
@@ -98,11 +98,12 @@ export const updateProfile = async (req, res) => {
         );
 
         res.status(200).json(updatedUser);
-    } catch (err) {
-        console.log("Error in updateProfile controller", err.message);
-        res.status(500).json({message: "Internal Server Error"});
+    } catch (error) {
+        console.log("error in update profile:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 export const checkAuth = (req, res) => {
     try{
